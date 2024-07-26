@@ -13,6 +13,22 @@ import static com.eokwingster.antipotions.AntiPotionsMod.MODID;
 public class APPotions {
     private static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(BuiltInRegistries.POTION, MODID);
 
+    public static final Holder<Potion> RELISH = POTIONS.register(
+            "relish", () -> new Potion(
+                    "relish", new MobEffectInstance(APMobEffects.RELISH, 3600)
+            )
+    );
+    public static final Holder<Potion> LONG_RELISH = POTIONS.register(
+            "long_relish", () -> new Potion(
+                    "relish", new MobEffectInstance(APMobEffects.RELISH, 9600)
+            )
+    );
+    public static final Holder<Potion> STRONG_RELISH = POTIONS.register(
+            "strong_relish", () -> new Potion(
+                    "relish", new MobEffectInstance(APMobEffects.RELISH, 1800, 1)
+            )
+    );
+    
     public static final Holder<Potion> JUMP_LOSS = POTIONS.register(
             "jump_loss", () -> new Potion(
                     "jump_loss", new MobEffectInstance(APMobEffects.JUMP_LOSS, 3600)

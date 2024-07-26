@@ -23,6 +23,8 @@ public class APLanguageProvider extends LanguageProvider {
         addPotion(APPotions.ANTI_WITHER, "Anti Wither");
         add(APMobEffects.JUMP_LOSS.value(), "Jump Loss");
         addPotion(APPotions.JUMP_LOSS, "Jump Loss");
+        add(APMobEffects.RELISH.value(), "Relish");
+        addPotion(APPotions.RELISH, "Relish");
     }
 
     private void addPotion(Holder<Potion> potionHolder, String name) {

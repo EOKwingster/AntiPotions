@@ -15,6 +15,10 @@ import static com.eokwingster.antipotions.AntiPotionsMod.MODID;
 public class APMobEffects {
     private static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(BuiltInRegistries.MOB_EFFECT, MODID);
 
+    public static final Holder<MobEffect> RELISH = MOB_EFFECTS.register(
+            "relish", () -> new BaseMobEffect(MobEffectCategory.BENEFICIAL, 11199157)
+    );
+
     public static final Holder<MobEffect> JUMP_LOSS = MOB_EFFECTS.register(
             "jump_loss", () -> new BaseMobEffect(MobEffectCategory.HARMFUL, 131195)
                     .addAttributeModifier(Attributes.SAFE_FALL_DISTANCE, ResourceLocation.fromNamespaceAndPath(MODID, "effect.jump_loss.save_fall_distance"), -1, AttributeModifier.Operation.ADD_VALUE)
