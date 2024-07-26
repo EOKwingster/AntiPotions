@@ -19,12 +19,17 @@ public class APLanguageProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
+        //mob effects
         add(APMobEffects.ANTI_WITHER.value(), "Anti Wither");
-        addPotion(APPotions.ANTI_WITHER, "Anti Wither");
         add(APMobEffects.JUMP_LOSS.value(), "Jump Loss");
-        addPotion(APPotions.JUMP_LOSS, "Jump Loss");
         add(APMobEffects.RELISH.value(), "Relish");
+        add(APMobEffects.VULNERABLE.value(), "Vulnerable");
+
+        //potions
+        addPotion(APPotions.ANTI_WITHER, "Anti Wither");
+        addPotion(APPotions.JUMP_LOSS, "Jump Loss");
         addPotion(APPotions.RELISH, "Relish");
+        addPotion(APPotions.MOUSE_MASTER, "the Mouse Master");
     }
 
     private void addPotion(Holder<Potion> potionHolder, String name) {

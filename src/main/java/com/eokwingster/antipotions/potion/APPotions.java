@@ -4,6 +4,7 @@ import com.eokwingster.antipotions.effect.APMobEffects;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.alchemy.Potion;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -12,6 +13,28 @@ import static com.eokwingster.antipotions.AntiPotionsMod.MODID;
 
 public class APPotions {
     private static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(BuiltInRegistries.POTION, MODID);
+
+    public static final Holder<Potion> MOUSE_MASTER = POTIONS.register(
+            "mouse_master", () -> new Potion(
+                    "mouse_master",
+                    new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 400, 3),
+                    new MobEffectInstance(APMobEffects.VULNERABLE, 400, 2)
+            )
+    );
+    public static final Holder<Potion> LONG_MOUSE_MASTER = POTIONS.register(
+            "long_mouse_master", () -> new Potion(
+                    "mouse_master",
+                    new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 800, 3),
+                    new MobEffectInstance(APMobEffects.VULNERABLE, 800, 2)
+            )
+    );
+    public static final Holder<Potion> STRONG_MOUSE_MASTER = POTIONS.register(
+            "strong_mouse_master", () -> new Potion(
+                    "mouse_master",
+                    new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 400, 5),
+                    new MobEffectInstance(APMobEffects.VULNERABLE, 400, 3)
+            )
+    );
 
     public static final Holder<Potion> RELISH = POTIONS.register(
             "relish", () -> new Potion(
