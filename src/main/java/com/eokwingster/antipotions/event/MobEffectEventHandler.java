@@ -13,15 +13,26 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.damagesource.DamageContainer;
-import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
-import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
-import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
-import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
+import net.neoforged.neoforge.event.entity.living.*;
 
 import static com.eokwingster.antipotions.AntiPotionsMod.MODID;
 
 @EventBusSubscriber(modid = MODID)
 public class MobEffectEventHandler {
+    @SubscribeEvent
+    private static void mobEffectAdded(MobEffectEvent.Added event) {
+        LivingEntity entity = event.getEntity();
+        Level level = entity.level();
+        MobEffectInstance effectInstance = event.getEffectInstance();
+
+        if (!level.isClientSide()) {
+            //taunt mob effect: cancel invisibility
+            if (effectInstance != null && effectInstance.is(APMobEffects.VISIBILITY)) {
+                entity.removeEffect(MobEffects.INVISIBILITY);
+            }
+        }
+    }
+
     @SubscribeEvent
     private static void LivingDamagePre(LivingDamageEvent.Pre event) {
         LivingEntity entity = event.getEntity();
@@ -39,13 +50,13 @@ public class MobEffectEventHandler {
                 int potionLevel5 = (vulnerableEffectInstance.getAmplifier() + 1) * 5;
                 int j = 25 + potionLevel5;
                 float f = damageBeforeAbsorption * (float) j;
-                float newDamageBeforeAbsorption = f / 25f;
+                float newDamageBeforeAbsorption = f / 25F;
                 //recompute absorption
                 float oldAbsorptionAmount = entity.getAbsorptionAmount() + absorption;
                 container.setReduction(DamageContainer.Reduction.ABSORPTION, Math.min(oldAbsorptionAmount, newDamageBeforeAbsorption));
                 float absorbed = Math.min(newDamageBeforeAbsorption, container.getReduction(DamageContainer.Reduction.ABSORPTION));
-                entity.setAbsorptionAmount(Math.max(0, oldAbsorptionAmount - absorbed));
-                if (absorbed > 0.0f && absorbed < 3.4028235E37F) {
+                entity.setAbsorptionAmount(Math.max(0F, oldAbsorptionAmount - absorbed));
+                if (absorbed > 0.0F && absorbed < 3.4028235E37F) {
                     float newDamage = newDamageBeforeAbsorption - absorbed;
                     event.setNewDamage(newDamage);
                 }
@@ -108,7 +119,14 @@ public class MobEffectEventHandler {
         if (!level.isClientSide()) {
             //relish mob effect: prevent confusion
             if (effectInstance != null && effectInstance.is(MobEffects.CONFUSION)) {
-                if (event.getEntity().hasEffect(APMobEffects.RELISH)) {
+                if (entity.hasEffect(APMobEffects.RELISH)) {
+                    event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
+                }
+            }
+
+            //taunt mob effect: prevent invisible
+            if (effectInstance != null && effectInstance.is(MobEffects.INVISIBILITY)) {
+                if (entity.hasEffect(APMobEffects.VISIBILITY)) {
                     event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
                 }
             }

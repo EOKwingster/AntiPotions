@@ -24,12 +24,14 @@ public class APLanguageProvider extends LanguageProvider {
         add(APMobEffects.JUMP_LOSS.value(), "Jump Loss");
         add(APMobEffects.RELISH.value(), "Relish");
         add(APMobEffects.VULNERABLE.value(), "Vulnerable");
+        add(APMobEffects.VISIBILITY.value(), "Visibility");
 
         //potions
         addPotion(APPotions.ANTI_WITHER, "Anti Wither");
         addPotion(APPotions.JUMP_LOSS, "Jump Loss");
         addPotion(APPotions.RELISH, "Relish");
         addPotion(APPotions.MOUSE_MASTER, "the Mouse Master");
+        addPotion(APPotions.VISIBILITY, "Visibility");
     }
 
     private void addPotion(Holder<Potion> potionHolder, String name) {

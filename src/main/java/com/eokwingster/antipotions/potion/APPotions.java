@@ -14,6 +14,21 @@ import static com.eokwingster.antipotions.AntiPotionsMod.MODID;
 public class APPotions {
     private static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(BuiltInRegistries.POTION, MODID);
 
+    public static final Holder<Potion> VISIBILITY = POTIONS.register(
+            "visibility", () -> new Potion(
+                    "visibility",
+                    new MobEffectInstance(APMobEffects.VISIBILITY, 3600),
+                    new MobEffectInstance(MobEffects.GLOWING, 3600)
+            )
+    );
+    public static final Holder<Potion> LONG_VISIBILITY = POTIONS.register(
+            "long_visibility", () -> new Potion(
+                    "visibility",
+                    new MobEffectInstance(APMobEffects.VISIBILITY, 9600),
+                    new MobEffectInstance(MobEffects.GLOWING, 9600)
+            )
+    );
+
     public static final Holder<Potion> MOUSE_MASTER = POTIONS.register(
             "mouse_master", () -> new Potion(
                     "mouse_master",

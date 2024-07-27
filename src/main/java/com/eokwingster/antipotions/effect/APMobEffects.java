@@ -15,6 +15,10 @@ import static com.eokwingster.antipotions.AntiPotionsMod.MODID;
 public class APMobEffects {
     private static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(BuiltInRegistries.MOB_EFFECT, MODID);
 
+    public static final Holder<MobEffect> VISIBILITY = MOB_EFFECTS.register(
+            "visibility", () -> new BaseMobEffect(MobEffectCategory.HARMFUL, 263172)
+    );
+
     public static final Holder<MobEffect> VULNERABLE = MOB_EFFECTS.register(
             "vulnerable", () -> new BaseMobEffect(MobEffectCategory.HARMFUL, 16711680)
     );
