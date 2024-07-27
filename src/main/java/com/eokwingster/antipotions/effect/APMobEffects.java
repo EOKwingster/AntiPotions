@@ -32,7 +32,7 @@ public class APMobEffects {
     );
 
     public static final Holder<MobEffect> JUMP_LOSS = MOB_EFFECTS.register(
-            "jump_loss", () -> new BaseMobEffect(MobEffectCategory.HARMFUL, 131195)
+            "jump_loss", () -> new BaseMobEffect(MobEffectCategory.HARMFUL, 5189895)
                     .addAttributeModifier(Attributes.SAFE_FALL_DISTANCE, ResourceLocation.fromNamespaceAndPath(MODID, "effect.jump_loss.save_fall_distance"), -1, AttributeModifier.Operation.ADD_VALUE)
                     .addAttributeModifier(Attributes.JUMP_STRENGTH, ResourceLocation.fromNamespaceAndPath(MODID, "effect.jump_loss.jump_strength"), -0.1, AttributeModifier.Operation.ADD_VALUE)
     );

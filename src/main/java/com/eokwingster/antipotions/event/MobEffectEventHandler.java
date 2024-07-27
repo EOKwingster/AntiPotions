@@ -16,6 +16,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.damagesource.DamageContainer;
 import net.neoforged.neoforge.event.entity.living.*;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
 import static com.eokwingster.antipotions.AntiPotionsMod.MODID;
 
@@ -23,15 +24,17 @@ import static com.eokwingster.antipotions.AntiPotionsMod.MODID;
 public class MobEffectEventHandler {
 
     @SubscribeEvent
-    private static void mobEffectAdded(MobEffectEvent.Added event) {
-        LivingEntity entity = event.getEntity();
+    private static void EntityTickPost(EntityTickEvent.Post event) {
+        Entity entity = event.getEntity();
         Level level = entity.level();
-        MobEffectInstance effectInstance = event.getEffectInstance();
 
         if (!level.isClientSide()) {
-            //taunt mob effect: cancel invisibility
-            if (effectInstance != null && effectInstance.is(APMobEffects.VISIBILITY)) {
-                entity.removeEffect(MobEffects.INVISIBILITY);
+            //visibility mob effect: prevent invisibility
+            if (entity instanceof LivingEntity livingEntity) {
+                MobEffectInstance visibilityInstance = livingEntity.getEffect(APMobEffects.VISIBILITY);
+                if (visibilityInstance != null) {
+                    livingEntity.setInvisible(false);
+                }
             }
         }
     }
@@ -123,13 +126,6 @@ public class MobEffectEventHandler {
             //relish mob effect: prevent confusion
             if (effectInstance != null && effectInstance.is(MobEffects.CONFUSION)) {
                 if (entity.hasEffect(APMobEffects.RELISH)) {
-                    event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
-                }
-            }
-
-            //taunt mob effect: prevent invisible
-            if (effectInstance != null && effectInstance.is(MobEffects.INVISIBILITY)) {
-                if (entity.hasEffect(APMobEffects.VISIBILITY)) {
                     event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
                 }
             }

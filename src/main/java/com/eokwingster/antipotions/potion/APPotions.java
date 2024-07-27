@@ -86,19 +86,19 @@ public class APPotions {
             )
     );
     
-    public static final Holder<Potion> JUMP_LOSS = POTIONS.register(
-            "jump_loss", () -> new Potion(
-                    "jump_loss", new MobEffectInstance(APMobEffects.JUMP_LOSS, 3600)
+    public static final Holder<Potion> SHORT_LEG = POTIONS.register(
+            "short_leg", () -> new Potion(
+                    "short_leg", new MobEffectInstance(APMobEffects.JUMP_LOSS, 3600)
             )
     );
-    public static final Holder<Potion> LONG_JUMP_LOSS = POTIONS.register(
-            "long_jump_loss", () -> new Potion(
-                    "jump_loss", new MobEffectInstance(APMobEffects.JUMP_LOSS, 9600)
+    public static final Holder<Potion> LONG_SHORT_LEG = POTIONS.register(
+            "long_short_leg", () -> new Potion(
+                    "short_leg", new MobEffectInstance(APMobEffects.JUMP_LOSS, 9600)
             )
     );
-    public static final Holder<Potion> STRONG_JUMP_LOSS = POTIONS.register(
-            "strong_jump_loss", () -> new Potion(
-                    "jump_loss", new MobEffectInstance(APMobEffects.JUMP_LOSS, 1800, 1)
+    public static final Holder<Potion> STRONG_SHORT_LEG = POTIONS.register(
+            "strong_short_leg", () -> new Potion(
+                    "short_leg", new MobEffectInstance(APMobEffects.JUMP_LOSS, 1800, 1)
             )
     );
 
