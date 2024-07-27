@@ -2,11 +2,20 @@
   "entries": [
     {
       "enum": "net/minecraft/client/gui/Gui$HeartType",
-      "name": "ANTIPOTIONS_ANTI_WITHERED",
+      "name": "ANTIPOTIONS_WITHER_RESISTANCE",
       "constructor": "(Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;)V",
       "parameters": {
         "class": "com/eokwingster/antipotions/extension/APEnumParams",
-        "field": "ANTI_WITHERED_HEART_TYPE"
+        "field": "WITHER_RESISTANCE_HEART_TYPE"
+      }
+    },
+    {
+      "enum": "net/minecraft/client/gui/Gui$HeartType",
+      "name": "ANTIPOTIONS_POISON_RESISTANCE",
+      "constructor": "(Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/resources/ResourceLocation;)V",
+      "parameters": {
+        "class": "com/eokwingster/antipotions/extension/APEnumParams",
+        "field": "POISON_RESISTANCE_HEART_TYPE"
       }
     }
   ]

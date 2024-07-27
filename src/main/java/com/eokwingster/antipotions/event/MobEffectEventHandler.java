@@ -1,9 +1,11 @@
 package com.eokwingster.antipotions.event;
 
 import com.eokwingster.antipotions.effect.APMobEffects;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
@@ -19,6 +21,7 @@ import static com.eokwingster.antipotions.AntiPotionsMod.MODID;
 
 @EventBusSubscriber(modid = MODID)
 public class MobEffectEventHandler {
+
     @SubscribeEvent
     private static void mobEffectAdded(MobEffectEvent.Added event) {
         LivingEntity entity = event.getEntity();
@@ -139,15 +142,30 @@ public class MobEffectEventHandler {
         Level level = entity.level();
 
         if (!level.isClientSide()) {
-            //antiWither mob effect
-            MobEffectInstance witherEffectInstance = entity.getEffect(MobEffects.WITHER);
-            MobEffectInstance antiWitherEffectInstance = entity.getEffect(APMobEffects.ANTI_WITHER);
-            if (witherEffectInstance != null && antiWitherEffectInstance != null) {
-                if (shouldApplyEffectTickThisTick(witherEffectInstance, entity)) {
+            //wither resistance mob effect: neutralize wither
+            MobEffectInstance witherInstance = entity.getEffect(MobEffects.WITHER);
+            MobEffectInstance witherResistanceInstance = entity.getEffect(APMobEffects.WITHER_RESISTANCE);
+            if (witherInstance != null && witherResistanceInstance != null) {
+                if (shouldApplyEffectTickThisTick(witherInstance, entity)) {
                     if (shouldApplyEffectTickThisTick(
-                            witherEffectInstance.getEffect().value(),
-                            getDuration(witherEffectInstance, entity),
-                            antiWitherEffectInstance.getAmplifier()
+                            witherInstance.getEffect().value(),
+                            getDuration(witherInstance, entity),
+                            witherResistanceInstance.getAmplifier()
+                    )) {
+                        event.setCanceled(true);
+                    }
+                }
+            }
+
+            //poison resistance mob effect: neutralize poison
+            MobEffectInstance poisonInstance = entity.getEffect(MobEffects.POISON);
+            MobEffectInstance poisonResistanceInstance = entity.getEffect(APMobEffects.POISON_RESISTANCE);
+            if (poisonInstance != null && poisonResistanceInstance != null) {
+                if (shouldApplyEffectTickThisTick(poisonInstance, entity)) {
+                    if (shouldApplyEffectTickThisTick(
+                            poisonInstance.getEffect().value(),
+                            getDuration(poisonInstance, entity),
+                            poisonResistanceInstance.getAmplifier()
                     )) {
                         event.setCanceled(true);
                     }

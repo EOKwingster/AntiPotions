@@ -19,14 +19,21 @@ public class PlayerHeartTypeEventHandler {
     private static void playerHeartType(PlayerHeartTypeEvent event) {
         Player player = event.getEntity();
 
-        //anti_withered
-        if (!event.getType().equals(Gui.HeartType.POISIONED)) {
-            MobEffectInstance antiWitherInstance = player.getEffect(APMobEffects.ANTI_WITHER);
-            MobEffectInstance witherInstance = player.getEffect(MobEffects.WITHER);
-            if (antiWitherInstance != null) {
-                if (witherInstance == null || witherInstance.getAmplifier() <= antiWitherInstance.getAmplifier()) {
-                    event.setType(APEnumParams.ANTI_WITHERED_HEART_TYPE.getValue());
-                }
+        //wither resistance
+        MobEffectInstance antiWitherInstance = player.getEffect(APMobEffects.WITHER_RESISTANCE);
+        MobEffectInstance witherInstance = player.getEffect(MobEffects.WITHER);
+        if (antiWitherInstance != null) {
+            if (witherInstance == null || witherInstance.getAmplifier() <= antiWitherInstance.getAmplifier()) {
+                event.setType(APEnumParams.WITHER_RESISTANCE_HEART_TYPE.getValue());
+            }
+        }
+
+        //poison resistance
+        MobEffectInstance poisonResistanceInstance = player.getEffect(APMobEffects.POISON_RESISTANCE);
+        MobEffectInstance poisonInstance = player.getEffect(MobEffects.POISON);
+        if (poisonResistanceInstance != null) {
+            if (poisonInstance == null || poisonInstance.getAmplifier() <= poisonResistanceInstance.getAmplifier()) {
+                event.setType(APEnumParams.POISON_RESISTANCE_HEART_TYPE.getValue());
             }
         }
     }

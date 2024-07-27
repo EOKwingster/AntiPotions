@@ -20,18 +20,20 @@ public class APLanguageProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         //mob effects
-        add(APMobEffects.ANTI_WITHER.value(), "Anti Wither");
+        add(APMobEffects.WITHER_RESISTANCE.value(), "Wither Resistance");
         add(APMobEffects.JUMP_LOSS.value(), "Jump Loss");
         add(APMobEffects.RELISH.value(), "Relish");
         add(APMobEffects.VULNERABLE.value(), "Vulnerable");
         add(APMobEffects.VISIBILITY.value(), "Visibility");
+        add(APMobEffects.POISON_RESISTANCE.value(), "Poison Resistance");
 
         //potions
-        addPotion(APPotions.ANTI_WITHER, "Anti Wither");
+        addPotion(APPotions.WITHER_RESISTANCE, "Wither Resistance");
         addPotion(APPotions.JUMP_LOSS, "Jump Loss");
         addPotion(APPotions.RELISH, "Relish");
         addPotion(APPotions.THIEF, "the Thief");
         addPotion(APPotions.VISIBILITY, "Visibility");
+        addPotion(APPotions.POISON_RESISTANCE, "Poison Resistance");
     }
 
     private void addPotion(Holder<Potion> potionHolder, String name) {

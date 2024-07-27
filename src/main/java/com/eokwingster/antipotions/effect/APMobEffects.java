@@ -15,6 +15,10 @@ import static com.eokwingster.antipotions.AntiPotionsMod.MODID;
 public class APMobEffects {
     private static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(BuiltInRegistries.MOB_EFFECT, MODID);
 
+    public static final Holder<MobEffect> POISON_RESISTANCE = MOB_EFFECTS.register(
+            "poison_resistance", () -> new BaseMobEffect(MobEffectCategory.BENEFICIAL, 12556751)
+    );
+
     public static final Holder<MobEffect> VISIBILITY = MOB_EFFECTS.register(
             "visibility", () -> new BaseMobEffect(MobEffectCategory.HARMFUL, 263172)
     );
@@ -33,8 +37,8 @@ public class APMobEffects {
                     .addAttributeModifier(Attributes.JUMP_STRENGTH, ResourceLocation.fromNamespaceAndPath(MODID, "effect.jump_loss.jump_strength"), -0.1, AttributeModifier.Operation.ADD_VALUE)
     );
 
-    public static final Holder<MobEffect> ANTI_WITHER = MOB_EFFECTS.register(
-            "anti_wither", () -> new BaseMobEffect(MobEffectCategory.BENEFICIAL, 9215657)
+    public static final Holder<MobEffect> WITHER_RESISTANCE = MOB_EFFECTS.register(
+            "wither_resistance", () -> new BaseMobEffect(MobEffectCategory.BENEFICIAL, 9215657)
     );
 
     public static void register(IEventBus bus) {

@@ -14,6 +14,22 @@ import static com.eokwingster.antipotions.AntiPotionsMod.MODID;
 public class APPotions {
     private static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(BuiltInRegistries.POTION, MODID);
 
+    public static final Holder<Potion> POISON_RESISTANCE = POTIONS.register(
+            "poison_resistance", () -> new Potion(
+                    "poison_resistance", new MobEffectInstance(APMobEffects.POISON_RESISTANCE, 900)
+            )
+    );
+    public static final Holder<Potion> LONG_POISON_RESISTANCE = POTIONS.register(
+            "long_poison_resistance", () -> new Potion(
+                    "poison_resistance", new MobEffectInstance(APMobEffects.POISON_RESISTANCE, 1800)
+            )
+    );
+    public static final Holder<Potion> STRONG_POISON_RESISTANCE = POTIONS.register(
+            "strong_poison_resistance", () -> new Potion(
+                    "poison_resistance", new MobEffectInstance(APMobEffects.POISON_RESISTANCE, 432, 1)
+            )
+    );
+    
     public static final Holder<Potion> VISIBILITY = POTIONS.register(
             "visibility", () -> new Potion(
                     "visibility",
@@ -86,19 +102,19 @@ public class APPotions {
             )
     );
 
-    public static final Holder<Potion> ANTI_WITHER = POTIONS.register(
-            "anti_wither", () -> new Potion(
-                    "anti_wither", new MobEffectInstance(APMobEffects.ANTI_WITHER, 3600)
+    public static final Holder<Potion> WITHER_RESISTANCE = POTIONS.register(
+            "wither_resistance", () -> new Potion(
+                    "wither_resistance", new MobEffectInstance(APMobEffects.WITHER_RESISTANCE, 3600)
             )
     );
-    public static final Holder<Potion> LONG_ANTI_WITHER = POTIONS.register(
-            "long_anti_wither", () -> new Potion(
-                    "anti_wither", new MobEffectInstance(APMobEffects.ANTI_WITHER, 9600)
+    public static final Holder<Potion> LONG_WITHER_RESISTANCE = POTIONS.register(
+            "long_wither_resistance", () -> new Potion(
+                    "wither_resistance", new MobEffectInstance(APMobEffects.WITHER_RESISTANCE, 9600)
             )
     );
-    public static final Holder<Potion> STRONG_ANTI_WITHER = POTIONS.register(
-            "strong_anti_wither", () -> new Potion(
-                    "anti_wither", new MobEffectInstance(APMobEffects.ANTI_WITHER, 1800, 1)
+    public static final Holder<Potion> STRONG_WITHER_RESISTANCE = POTIONS.register(
+            "strong_wither_resistance", () -> new Potion(
+                    "wither_resistance", new MobEffectInstance(APMobEffects.WITHER_RESISTANCE, 1800, 1)
             )
     );
 
