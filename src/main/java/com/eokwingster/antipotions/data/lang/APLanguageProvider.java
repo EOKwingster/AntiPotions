@@ -30,7 +30,7 @@ public class APLanguageProvider extends LanguageProvider {
         addPotion(APPotions.ANTI_WITHER, "Anti Wither");
         addPotion(APPotions.JUMP_LOSS, "Jump Loss");
         addPotion(APPotions.RELISH, "Relish");
-        addPotion(APPotions.MOUSE_MASTER, "the Mouse Master");
+        addPotion(APPotions.THIEF, "the Thief");
         addPotion(APPotions.VISIBILITY, "Visibility");
     }
 

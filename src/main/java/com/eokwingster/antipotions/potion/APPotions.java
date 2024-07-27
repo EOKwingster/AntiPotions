@@ -29,24 +29,27 @@ public class APPotions {
             )
     );
 
-    public static final Holder<Potion> MOUSE_MASTER = POTIONS.register(
-            "mouse_master", () -> new Potion(
-                    "mouse_master",
+    public static final Holder<Potion> THIEF = POTIONS.register(
+            "thief", () -> new Potion(
+                    "thief",
                     new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 400, 3),
+                    new MobEffectInstance(MobEffects.INVISIBILITY, 200),
                     new MobEffectInstance(APMobEffects.VULNERABLE, 400, 2)
             )
     );
-    public static final Holder<Potion> LONG_MOUSE_MASTER = POTIONS.register(
-            "long_mouse_master", () -> new Potion(
-                    "mouse_master",
+    public static final Holder<Potion> LONG_THIEF = POTIONS.register(
+            "long_thief", () -> new Potion(
+                    "thief",
                     new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 800, 3),
+                    new MobEffectInstance(MobEffects.INVISIBILITY, 400),
                     new MobEffectInstance(APMobEffects.VULNERABLE, 800, 2)
             )
     );
-    public static final Holder<Potion> STRONG_MOUSE_MASTER = POTIONS.register(
-            "strong_mouse_master", () -> new Potion(
-                    "mouse_master",
+    public static final Holder<Potion> STRONG_THIEF = POTIONS.register(
+            "strong_thief", () -> new Potion(
+                    "thief",
                     new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 400, 5),
+                    new MobEffectInstance(MobEffects.INVISIBILITY, 200),
                     new MobEffectInstance(APMobEffects.VULNERABLE, 400, 3)
             )
     );
