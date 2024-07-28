@@ -1,6 +1,7 @@
 package com.eokwingster.antipotions.event;
 
 import com.eokwingster.antipotions.effect.APMobEffects;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -40,31 +41,23 @@ public class MobEffectEventHandler {
     }
 
     @SubscribeEvent
-    private static void LivingDamagePre(LivingDamageEvent.Pre event) {
+    private static void livingEntityUseItemStart(LivingEntityUseItemEvent.Start event) {
         LivingEntity entity = event.getEntity();
+        ItemStack itemStack = event.getItem();
         Level level = entity.level();
 
         if (!level.isClientSide()) {
-            //vulnerable mob effect: multiply damage by potionLevel * 0.2
-            MobEffectInstance vulnerableEffectInstance = entity.getEffect(APMobEffects.VULNERABLE);
-            if (vulnerableEffectInstance != null) {
-                //get damage before absorption
-                DamageContainer container = event.getContainer();
-                float absorption = container.getReduction(DamageContainer.Reduction.ABSORPTION);
-                float damageBeforeAbsorption = container.getNewDamage() + absorption;
-                //get vulnerable damage before absorption
-                int potionLevel5 = (vulnerableEffectInstance.getAmplifier() + 1) * 5;
-                int j = 25 + potionLevel5;
-                float f = damageBeforeAbsorption * (float) j;
-                float newDamageBeforeAbsorption = f / 25F;
-                //recompute absorption
-                float oldAbsorptionAmount = entity.getAbsorptionAmount() + absorption;
-                container.setReduction(DamageContainer.Reduction.ABSORPTION, Math.min(oldAbsorptionAmount, newDamageBeforeAbsorption));
-                float absorbed = Math.min(newDamageBeforeAbsorption, container.getReduction(DamageContainer.Reduction.ABSORPTION));
-                entity.setAbsorptionAmount(Math.max(0F, oldAbsorptionAmount - absorbed));
-                if (absorbed > 0.0F && absorbed < 3.4028235E37F) {
-                    float newDamage = newDamageBeforeAbsorption - absorbed;
-                    event.setNewDamage(newDamage);
+            //relish mob effect: fasten consuming foods
+            MobEffectInstance relishEffectInstance = entity.getEffect(APMobEffects.RELISH);
+            if (relishEffectInstance != null) {
+                if (itemStack.is(Tags.Items.FOODS)) {
+                    int amplifier = relishEffectInstance.getAmplifier();
+                    int duration = event.getDuration();
+                    int newDuration = (int) (duration * Math.pow(0.65, amplifier + 1));
+                    if (newDuration < 1) {
+                        newDuration = 1;
+                    }
+                    event.setDuration(newDuration);
                 }
             }
         }
@@ -94,40 +87,52 @@ public class MobEffectEventHandler {
     }
 
     @SubscribeEvent
-    private static void livingEntityUseItemStart(LivingEntityUseItemEvent.Start event) {
+    private static void mobEffectApplicable(MobEffectEvent.Applicable event) {
+        MobEffectInstance effectInstance = event.getEffectInstance();
         LivingEntity entity = event.getEntity();
-        ItemStack itemStack = event.getItem();
-        Level level = entity.level();
 
-        if (!level.isClientSide()) {
-            //relish mob effect: fasten consuming foods
-            MobEffectInstance relishEffectInstance = entity.getEffect(APMobEffects.RELISH);
-            if (relishEffectInstance != null) {
-                if (itemStack.is(Tags.Items.FOODS)) {
-                    int amplifier = relishEffectInstance.getAmplifier();
-                    int duration = event.getDuration();
-                    int newDuration = (int) (duration * Math.pow(0.65, amplifier + 1));
-                    if (newDuration < 1) {
-                        newDuration = 1;
-                    }
-                    event.setDuration(newDuration);
-                }
+        //relish mob effect: prevent confusion
+        if (effectInstance != null && effectInstance.is(MobEffects.CONFUSION)) {
+            if (entity.hasEffect(APMobEffects.RELISH)) {
+                event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
+            }
+        }
+
+        //blindness resistance mob effect: prevent blindness
+        if (effectInstance != null && effectInstance.is(MobEffects.BLINDNESS)) {
+            if (entity.hasEffect(APMobEffects.BLINDNESS_RESISTANCE)) {
+                event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
+            }
+        }
+
+        //darkness resistance mob effect: prevent darkness
+        if (effectInstance != null && effectInstance.is(MobEffects.DARKNESS)) {
+            if (entity.hasEffect(APMobEffects.DARKNESS_RESISTANCE)) {
+                event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
             }
         }
     }
 
     @SubscribeEvent
-    private static void mobEffectApplicable(MobEffectEvent.Applicable event) {
+    private static void mobEffectAdded(MobEffectEvent.Added event) {
         MobEffectInstance effectInstance = event.getEffectInstance();
         LivingEntity entity = event.getEntity();
         Level level = entity.level();
 
         if (!level.isClientSide()) {
-            //relish mob effect: prevent confusion
-            if (effectInstance != null && effectInstance.is(MobEffects.CONFUSION)) {
-                if (entity.hasEffect(APMobEffects.RELISH)) {
-                    event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
-                }
+            //relish mob effect: cancel nausea
+            if (effectInstance.is(APMobEffects.RELISH)) {
+                entity.removeEffect(MobEffects.CONFUSION);
+            }
+
+            //blindness resistance mob effect: cancel blindness
+            if (effectInstance.is(APMobEffects.BLINDNESS_RESISTANCE)) {
+                entity.removeEffect(MobEffects.BLINDNESS);
+            }
+
+            //darkness resistance mob effect: cancel darkness
+            if (effectInstance.is(APMobEffects.DARKNESS_RESISTANCE)) {
+                entity.removeEffect(MobEffects.DARKNESS);
             }
         }
     }
@@ -165,6 +170,38 @@ public class MobEffectEventHandler {
                     )) {
                         event.setCanceled(true);
                     }
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    private static void LivingDamagePre(LivingDamageEvent.Pre event) {
+        LivingEntity entity = event.getEntity();
+        Level level = entity.level();
+        DamageSource damageSource = event.getSource();
+
+        if (!level.isClientSide()) {
+            //vulnerable mob effect: multiply damage by potionLevel * 0.2
+            MobEffectInstance vulnerableEffectInstance = entity.getEffect(APMobEffects.VULNERABLE);
+            if (vulnerableEffectInstance != null && !damageSource.is(DamageTypeTags.BYPASSES_RESISTANCE)) {
+                //get damage before absorption
+                DamageContainer container = event.getContainer();
+                float absorption = container.getReduction(DamageContainer.Reduction.ABSORPTION);
+                float damageBeforeAbsorption = container.getNewDamage() + absorption;
+                //get vulnerable damage before absorption
+                int potionLevel5 = (vulnerableEffectInstance.getAmplifier() + 1) * 5;
+                int j = 25 + potionLevel5;
+                float f = damageBeforeAbsorption * (float) j;
+                float newDamageBeforeAbsorption = f / 25F;
+                //recompute absorption
+                float oldAbsorptionAmount = entity.getAbsorptionAmount() + absorption;
+                container.setReduction(DamageContainer.Reduction.ABSORPTION, Math.min(oldAbsorptionAmount, newDamageBeforeAbsorption));
+                float absorbed = Math.min(newDamageBeforeAbsorption, container.getReduction(DamageContainer.Reduction.ABSORPTION));
+                entity.setAbsorptionAmount(Math.max(0F, oldAbsorptionAmount - absorbed));
+                if (absorbed > 0.0F && absorbed < 3.4028235E37F) {
+                    float newDamage = newDamageBeforeAbsorption - absorbed;
+                    event.setNewDamage(newDamage);
                 }
             }
         }

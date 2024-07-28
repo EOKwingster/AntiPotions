@@ -20,23 +20,26 @@ public class APLanguageProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         //mob effects
-        add(APMobEffects.WITHER_RESISTANCE.value(), "Wither Resistance");
+        add(APMobEffects.VULNERABLE.value(), "Vulnerable");
         add(APMobEffects.JUMP_LOSS.value(), "Jump Loss");
         add(APMobEffects.RELISH.value(), "Relish");
-        add(APMobEffects.VULNERABLE.value(), "Vulnerable");
         add(APMobEffects.VISIBILITY.value(), "Visibility");
+        add(APMobEffects.WITHER_RESISTANCE.value(), "Wither Resistance");
         add(APMobEffects.POISON_RESISTANCE.value(), "Poison Resistance");
+        add(APMobEffects.BLINDNESS_RESISTANCE.value(), "Blindness Resistance");
+        add(APMobEffects.DARKNESS_RESISTANCE.value(), "Darkness Resistance");
 
         //potions
-        addPotion(APPotions.WITHER_RESISTANCE, "Wither Resistance");
-        addPotion(APPotions.SHORT_LEG, "Short Leg");
-        addPotion(APPotions.RELISH, "Relish");
-        addPotion(APPotions.THIEF, "the Thief");
-        addPotion(APPotions.VISIBILITY, "Visibility");
-        addPotion(APPotions.POISON_RESISTANCE, "Poison Resistance");
+        addPotions(APPotions.THIEF, "the Thief");
+        addPotions(APPotions.SHORT_LEG, "Short Leg");
+        addPotions(APPotions.RELISH, "Relish");
+        addPotions(APPotions.VISIBILITY, "Visibility");
+        addPotions(APPotions.SIGHT, "Sight");
+        addPotions(APPotions.WITHER_RESISTANCE, "Wither Resistance");
+        addPotions(APPotions.POISON_RESISTANCE, "Poison Resistance");
     }
 
-    private void addPotion(Holder<Potion> potionHolder, String name) {
+    private void addPotions(Holder<Potion> potionHolder, String name) {
         add(potionLanguageKey(potionHolder, Items.TIPPED_ARROW), "Arrow of " + name);
         add(potionLanguageKey(potionHolder, Items.POTION), "Potion of " + name);
         add(potionLanguageKey(potionHolder, Items.SPLASH_POTION), "Splash Potion of " + name);

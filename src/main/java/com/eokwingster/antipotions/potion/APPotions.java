@@ -14,6 +14,23 @@ import static com.eokwingster.antipotions.AntiPotionsMod.MODID;
 public class APPotions {
     private static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(BuiltInRegistries.POTION, MODID);
 
+    public static final Holder<Potion> SIGHT = POTIONS.register(
+            "sight", () -> new Potion(
+                    "sight",
+                    new MobEffectInstance(MobEffects.NIGHT_VISION, 3600),
+                    new MobEffectInstance(APMobEffects.BLINDNESS_RESISTANCE, 3600),
+                    new MobEffectInstance(APMobEffects.DARKNESS_RESISTANCE, 3600, 0, false, false)
+            )
+    );
+    public static final Holder<Potion> LONG_SIGHT = POTIONS.register(
+            "long_sight", () -> new Potion(
+                    "sight",
+                    new MobEffectInstance(MobEffects.NIGHT_VISION, 9600),
+                    new MobEffectInstance(APMobEffects.BLINDNESS_RESISTANCE, 9600),
+                    new MobEffectInstance(APMobEffects.DARKNESS_RESISTANCE, 9600, 0, false, false)
+            )
+    );
+
     public static final Holder<Potion> POISON_RESISTANCE = POTIONS.register(
             "poison_resistance", () -> new Potion(
                     "poison_resistance", new MobEffectInstance(APMobEffects.POISON_RESISTANCE, 900)

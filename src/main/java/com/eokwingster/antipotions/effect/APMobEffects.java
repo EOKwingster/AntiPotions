@@ -15,20 +15,8 @@ import static com.eokwingster.antipotions.AntiPotionsMod.MODID;
 public class APMobEffects {
     private static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(BuiltInRegistries.MOB_EFFECT, MODID);
 
-    public static final Holder<MobEffect> POISON_RESISTANCE = MOB_EFFECTS.register(
-            "poison_resistance", () -> new BaseMobEffect(MobEffectCategory.BENEFICIAL, 12556751)
-    );
-
-    public static final Holder<MobEffect> VISIBILITY = MOB_EFFECTS.register(
-            "visibility", () -> new BaseMobEffect(MobEffectCategory.HARMFUL, 263172)
-    );
-
     public static final Holder<MobEffect> VULNERABLE = MOB_EFFECTS.register(
             "vulnerable", () -> new BaseMobEffect(MobEffectCategory.HARMFUL, 16711680)
-    );
-
-    public static final Holder<MobEffect> RELISH = MOB_EFFECTS.register(
-            "relish", () -> new BaseMobEffect(MobEffectCategory.BENEFICIAL, 11199157)
     );
 
     public static final Holder<MobEffect> JUMP_LOSS = MOB_EFFECTS.register(
@@ -37,6 +25,23 @@ public class APMobEffects {
                     .addAttributeModifier(Attributes.JUMP_STRENGTH, ResourceLocation.fromNamespaceAndPath(MODID, "effect.jump_loss.jump_strength"), -0.1, AttributeModifier.Operation.ADD_VALUE)
     );
 
+    public static final Holder<MobEffect> RELISH = MOB_EFFECTS.register(
+            "relish", () -> new BaseMobEffect(MobEffectCategory.BENEFICIAL, 11199157)
+    );
+
+    public static final Holder<MobEffect> VISIBILITY = MOB_EFFECTS.register(
+            "visibility", () -> new BaseMobEffect(MobEffectCategory.HARMFUL, 263172)
+    );
+
+    public static final Holder<MobEffect> DARKNESS_RESISTANCE = MOB_EFFECTS.register(
+            "darkness_resistance", () -> new BaseMobEffect(MobEffectCategory.BENEFICIAL, 14080222)
+    );
+    public static final Holder<MobEffect> BLINDNESS_RESISTANCE = MOB_EFFECTS.register(
+            "blindness_resistance", () -> new BaseMobEffect(MobEffectCategory.BENEFICIAL, 16514043)
+    );
+    public static final Holder<MobEffect> POISON_RESISTANCE = MOB_EFFECTS.register(
+            "poison_resistance", () -> new BaseMobEffect(MobEffectCategory.BENEFICIAL, 12556751)
+    );
     public static final Holder<MobEffect> WITHER_RESISTANCE = MOB_EFFECTS.register(
             "wither_resistance", () -> new BaseMobEffect(MobEffectCategory.BENEFICIAL, 9215657)
     );
