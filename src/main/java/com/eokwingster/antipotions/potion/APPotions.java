@@ -14,6 +14,33 @@ import static com.eokwingster.antipotions.AntiPotionsMod.MODID;
 public class APPotions {
     private static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(BuiltInRegistries.POTION, MODID);
 
+    public static final Holder<Potion> STEADINESS = POTIONS.register(
+            "steadiness", () -> new Potion(
+                    "steadiness",
+                    new MobEffectInstance(APMobEffects.HEAVINESS, 3600),
+                    new MobEffectInstance(MobEffects.JUMP, 3600, 1)
+            )
+    );
+    public static final Holder<Potion> LONG_STEADINESS = POTIONS.register(
+            "long_steadiness", () -> new Potion(
+                    "steadiness",
+                    new MobEffectInstance(APMobEffects.HEAVINESS, 9600),
+                    new MobEffectInstance(MobEffects.JUMP, 9600, 1)
+            )
+    );
+    public static final Holder<Potion> HEAVINESS = POTIONS.register(
+            "heaviness", () -> new Potion(
+                    "heaviness",
+                    new MobEffectInstance(APMobEffects.HEAVINESS, 3600)
+            )
+    );
+    public static final Holder<Potion> LONG_HEAVINESS = POTIONS.register(
+            "long_heaviness", () -> new Potion(
+                    "heaviness",
+                    new MobEffectInstance(APMobEffects.HEAVINESS, 9600)
+            )
+    );
+    
     public static final Holder<Potion> SIGHT = POTIONS.register(
             "sight", () -> new Potion(
                     "sight",

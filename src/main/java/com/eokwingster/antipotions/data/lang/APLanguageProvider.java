@@ -28,6 +28,7 @@ public class APLanguageProvider extends LanguageProvider {
         add(APMobEffects.POISON_RESISTANCE.value(), "Poison Resistance");
         add(APMobEffects.BLINDNESS_RESISTANCE.value(), "Blindness Resistance");
         add(APMobEffects.DARKNESS_RESISTANCE.value(), "Darkness Resistance");
+        add(APMobEffects.HEAVINESS.value(), "Heaviness");
 
         //potions
         addPotions(APPotions.THIEF, "the Thief");
@@ -37,6 +38,8 @@ public class APLanguageProvider extends LanguageProvider {
         addPotions(APPotions.SIGHT, "Sight");
         addPotions(APPotions.WITHER_RESISTANCE, "Wither Resistance");
         addPotions(APPotions.POISON_RESISTANCE, "Poison Resistance");
+        addPotions(APPotions.HEAVINESS, "Heaviness");
+        addPotions(APPotions.STEADINESS, "Steadiness");
     }
 
     private void addPotions(Holder<Potion> potionHolder, String name) {

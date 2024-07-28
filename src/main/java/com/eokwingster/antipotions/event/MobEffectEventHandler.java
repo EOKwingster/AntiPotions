@@ -111,6 +111,13 @@ public class MobEffectEventHandler {
                 event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
             }
         }
+
+        //heaviness mob effect: prevent levitation
+        if (effectInstance != null && effectInstance.is(MobEffects.LEVITATION)) {
+            if (entity.hasEffect(APMobEffects.HEAVINESS)) {
+                event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
+            }
+        }
     }
 
     @SubscribeEvent
@@ -133,6 +140,11 @@ public class MobEffectEventHandler {
             //darkness resistance mob effect: cancel darkness
             if (effectInstance.is(APMobEffects.DARKNESS_RESISTANCE)) {
                 entity.removeEffect(MobEffects.DARKNESS);
+            }
+
+            //heaviness mob effect: cancel levitation
+            if (effectInstance.is(APMobEffects.HEAVINESS)) {
+                entity.removeEffect(MobEffects.LEVITATION);
             }
         }
     }

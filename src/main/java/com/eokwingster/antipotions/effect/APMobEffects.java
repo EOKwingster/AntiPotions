@@ -33,6 +33,11 @@ public class APMobEffects {
             "visibility", () -> new BaseMobEffect(MobEffectCategory.HARMFUL, 263172)
     );
 
+    public static final Holder<MobEffect> HEAVINESS = MOB_EFFECTS.register(
+            "heaviness", () -> new BaseMobEffect(MobEffectCategory.NEUTRAL, 1978438)
+                    .addAttributeModifier(Attributes.GRAVITY, ResourceLocation.fromNamespaceAndPath(MODID, "effect.heaviness"), 0.06, AttributeModifier.Operation.ADD_VALUE)
+    );
+
     public static final Holder<MobEffect> DARKNESS_RESISTANCE = MOB_EFFECTS.register(
             "darkness_resistance", () -> new BaseMobEffect(MobEffectCategory.BENEFICIAL, 14080222)
     );
