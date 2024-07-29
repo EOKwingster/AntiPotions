@@ -91,7 +91,7 @@ public class MobEffectEventHandler {
         MobEffectInstance effectInstance = event.getEffectInstance();
         LivingEntity entity = event.getEntity();
 
-        //relish mob effect: prevent confusion
+        //relish mob effect: prevent nausea
         if (effectInstance != null && effectInstance.is(MobEffects.CONFUSION)) {
             if (entity.hasEffect(APMobEffects.RELISH)) {
                 event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
