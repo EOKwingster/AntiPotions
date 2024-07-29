@@ -68,11 +68,6 @@ public class APPotions {
                     "poison_resistance", new MobEffectInstance(APMobEffects.POISON_RESISTANCE, 1800)
             )
     );
-    public static final Holder<Potion> STRONG_POISON_RESISTANCE = POTIONS.register(
-            "strong_poison_resistance", () -> new Potion(
-                    "poison_resistance", new MobEffectInstance(APMobEffects.POISON_RESISTANCE, 432, 1)
-            )
-    );
     
     public static final Holder<Potion> VISIBILITY = POTIONS.register(
             "visibility", () -> new Potion(
@@ -130,19 +125,19 @@ public class APPotions {
             )
     );
     
-    public static final Holder<Potion> SHORT_LEG = POTIONS.register(
-            "short_leg", () -> new Potion(
-                    "short_leg", new MobEffectInstance(APMobEffects.JUMP_LOSS, 3600)
+    public static final Holder<Potion> STICKY_LAND = POTIONS.register(
+            "sticky_land", () -> new Potion(
+                    "sticky_land", new MobEffectInstance(APMobEffects.JUMP_LOSS, 3600)
             )
     );
-    public static final Holder<Potion> LONG_SHORT_LEG = POTIONS.register(
-            "long_short_leg", () -> new Potion(
-                    "short_leg", new MobEffectInstance(APMobEffects.JUMP_LOSS, 9600)
+    public static final Holder<Potion> LONG_STICKY_LAND = POTIONS.register(
+            "long_sticky_land", () -> new Potion(
+                    "sticky_land", new MobEffectInstance(APMobEffects.JUMP_LOSS, 9600)
             )
     );
-    public static final Holder<Potion> STRONG_SHORT_LEG = POTIONS.register(
-            "strong_short_leg", () -> new Potion(
-                    "short_leg", new MobEffectInstance(APMobEffects.JUMP_LOSS, 1800, 1)
+    public static final Holder<Potion> STRONG_STICKY_LAND = POTIONS.register(
+            "strong_sticky_land", () -> new Potion(
+                    "sticky_land", new MobEffectInstance(APMobEffects.JUMP_LOSS, 1800, 1)
             )
     );
 
@@ -154,11 +149,6 @@ public class APPotions {
     public static final Holder<Potion> LONG_WITHER_RESISTANCE = POTIONS.register(
             "long_wither_resistance", () -> new Potion(
                     "wither_resistance", new MobEffectInstance(APMobEffects.WITHER_RESISTANCE, 9600)
-            )
-    );
-    public static final Holder<Potion> STRONG_WITHER_RESISTANCE = POTIONS.register(
-            "strong_wither_resistance", () -> new Potion(
-                    "wither_resistance", new MobEffectInstance(APMobEffects.WITHER_RESISTANCE, 1800, 1)
             )
     );
 

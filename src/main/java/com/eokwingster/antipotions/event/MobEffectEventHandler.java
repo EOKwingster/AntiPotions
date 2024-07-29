@@ -153,36 +153,18 @@ public class MobEffectEventHandler {
     private static void livingIncomingDamage(LivingIncomingDamageEvent event) {
         LivingEntity entity = event.getEntity();
         Level level = entity.level();
+        DamageSource damageSource = event.getSource();
 
         if (!level.isClientSide()) {
             //wither resistance mob effect: neutralize wither
-            MobEffectInstance witherInstance = entity.getEffect(MobEffects.WITHER);
             MobEffectInstance witherResistanceInstance = entity.getEffect(APMobEffects.WITHER_RESISTANCE);
-            if (witherInstance != null && witherResistanceInstance != null) {
-                if (shouldApplyEffectTickThisTick(witherInstance, entity)) {
-                    if (shouldApplyEffectTickThisTick(
-                            witherInstance.getEffect().value(),
-                            getDuration(witherInstance, entity),
-                            witherResistanceInstance.getAmplifier()
-                    )) {
-                        event.setCanceled(true);
-                    }
-                }
+            if (damageSource.is(Tags.DamageTypes.IS_WITHER) && witherResistanceInstance != null) {
+                event.setCanceled(true);
             }
 
             //poison resistance mob effect: neutralize poison
-            MobEffectInstance poisonInstance = entity.getEffect(MobEffects.POISON);
-            MobEffectInstance poisonResistanceInstance = entity.getEffect(APMobEffects.POISON_RESISTANCE);
-            if (poisonInstance != null && poisonResistanceInstance != null) {
-                if (shouldApplyEffectTickThisTick(poisonInstance, entity)) {
-                    if (shouldApplyEffectTickThisTick(
-                            poisonInstance.getEffect().value(),
-                            getDuration(poisonInstance, entity),
-                            poisonResistanceInstance.getAmplifier()
-                    )) {
-                        event.setCanceled(true);
-                    }
-                }
+            if (damageSource.is(Tags.DamageTypes.IS_POISON) && entity.hasEffect(APMobEffects.POISON_RESISTANCE)) {
+                event.setCanceled(true);
             }
         }
     }
@@ -211,30 +193,10 @@ public class MobEffectEventHandler {
                 container.setReduction(DamageContainer.Reduction.ABSORPTION, Math.min(oldAbsorptionAmount, newDamageBeforeAbsorption));
                 float absorbed = Math.min(newDamageBeforeAbsorption, container.getReduction(DamageContainer.Reduction.ABSORPTION));
                 entity.setAbsorptionAmount(Math.max(0F, oldAbsorptionAmount - absorbed));
-                if (absorbed > 0.0F && absorbed < 3.4028235E37F) {
-                    float newDamage = newDamageBeforeAbsorption - absorbed;
-                    event.setNewDamage(newDamage);
-                }
+                //deal damage
+                float newDamage = newDamageBeforeAbsorption - absorbed;
+                event.setNewDamage(newDamage);
             }
-        }
-    }
-
-    private static boolean shouldApplyEffectTickThisTick(MobEffectInstance mobEffectInstance, LivingEntity entity) {
-        int duration = getDuration(mobEffectInstance, entity);
-        int amplifier = mobEffectInstance.getAmplifier();
-        MobEffect mobEffect = mobEffectInstance.getEffect().value();
-        return shouldApplyEffectTickThisTick(mobEffect, duration, amplifier);
-    }
-
-    private static boolean shouldApplyEffectTickThisTick(MobEffect mobEffect, int duration, int amplifier) {
-        return mobEffect.shouldApplyEffectTickThisTick(duration, amplifier);
-    }
-
-    private static int getDuration(MobEffectInstance mobEffectInstance, LivingEntity entity) {
-        if (mobEffectInstance.isInfiniteDuration()) {
-            return entity.tickCount;
-        } else {
-            return mobEffectInstance.getDuration();
         }
     }
 }

@@ -32,7 +32,7 @@ public class APLanguageProvider extends LanguageProvider {
 
         //potions
         addPotions(APPotions.THIEF, "the Thief");
-        addPotions(APPotions.SHORT_LEG, "Short Leg");
+        addPotions(APPotions.STICKY_LAND, "Sticky Land");
         addPotions(APPotions.RELISH, "Relish");
         addPotions(APPotions.VISIBILITY, "Visibility");
         addPotions(APPotions.SIGHT, "Sight");
